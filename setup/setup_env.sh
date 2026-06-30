@@ -34,7 +34,7 @@ cat << 'EOF'
    /`.          ,'-`----Y   |
   (            ;        |   '
   |  ,-.    ,-'         |  /
-  |  | (   |        hjw | /
+  |  | (   |       MJ<3 | /
   )  |  \  `.___________|/
   `--'   `--'
 EOF
@@ -51,8 +51,8 @@ if [[ "$ID" != "almalinux" ]]; then
 fi
 
 MAJOR_VERSION=$(echo "$VERSION_ID" | cut -d. -f1)
-if [[ "$MAJOR_VERSION" != "9" ]]; then
-	error "Se requiere AlmaLinux 9 y tu versión es $VERSION_ID"
+if [[ "$MAJOR_VERSION" -lt "9" ]]; then
+	error "Se requiere AlmaLinux 9 o superior y tu versión es $VERSION_ID"
 fi
 
 success "SO verificado: $PRETTY_NAME"
